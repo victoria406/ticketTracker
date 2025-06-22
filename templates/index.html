@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Support Tickets</title>
+</head>
+<body>
+	<h1>Support Tickets</h1>
+	<a href="/create">Create New Ticket</a>
+	<ul>
+		{% for ticket in tickets %}
+		<li>
+			<strong>{{ ticket.title }}</strong> - {{ ticket.description }}
+			[Status: {{ ticket.status }}]
+			<form action="/update/{{ ticket.id }}" method="POST" style"display:inline;">
+				<select name="status" onchange="this.form.submit()">
+					<option value="Open" {% if ticket.status == 'In Progress' %}selected{% endif %}>Resolved</option>
+					<option value="In Progress" {% if ticket.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+					<option value="Resolved" {% if ticket.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+				</select>
+			</form>
+		</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>
